@@ -37,7 +37,7 @@ func (c *TPLinkClient) GetDeviceInfo() (DeviceInfo, error) {
 		return res, err
 	}
 
-	if err = parseFromBodyNested(resp, &res); err != nil {
+	if err = parseFromBody(resp, &res); err != nil {
 		return res, err
 	}
 

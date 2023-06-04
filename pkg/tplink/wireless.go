@@ -17,7 +17,7 @@ type RadioInfo struct {
 	MinPower     int    `json:"minPower,omitempty"`
 }
 
-// GetRadioInfo returns the information about the passed radio from the EAP. It calls the `/data/wireless.basic.json` endpoint under the hood.
+// GetRadioInfo returns information for the provided radio ID.
 func (c *TPLinkClient) GetRadioInfo(radioId int) (RadioInfo, error) {
 
 	var res RadioInfo
@@ -31,7 +31,7 @@ func (c *TPLinkClient) GetRadioInfo(radioId int) (RadioInfo, error) {
 		return res, err
 	}
 
-	if err = parseFromBodyNested(resp, &res); err != nil {
+	if err = parseFromBody(resp, &res); err != nil {
 		return res, err
 	}
 

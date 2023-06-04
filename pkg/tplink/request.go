@@ -2,6 +2,7 @@ package tplink
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -39,20 +40,22 @@ func (c *TPLinkClient) makeRequest(method, path string, formData *url.Values, pa
 }
 
 func parseFromBody(resp *http.Response, out interface{}) error {
-	defer resp.Body.Close()
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	return json.Unmarshal(body, out)
-}
-
-func parseFromBodyNested(resp *http.Response, out interface{}) error {
+	// parse the response status from the to check for error codes returned despite a 200 OK
+	var status responseStatus
 	var tmp interface{}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+
+	err = json.Unmarshal(body, &status)
+	if err != nil {
+		return err
+	}
+
+	if !status.Ok() {
+		return fmt.Errorf("received error: %s", status.String())
 	}
 
 	err = json.Unmarshal(body, &tmp)

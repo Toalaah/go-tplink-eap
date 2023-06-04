@@ -1,7 +1,7 @@
 package tplink
 
 import (
-	"encoding/json"
+	"fmt"
 )
 
 type responseStatus struct {
@@ -10,8 +10,10 @@ type responseStatus struct {
 	Error   int  `json:"error,omitempty"`
 }
 
-func responseStatusFromHTTP(body []byte) (*responseStatus, error) {
-	r := &responseStatus{}
-	err := json.Unmarshal(body, r)
-	return r, err
+func (r *responseStatus) Ok() bool {
+	return r.Success && !r.Timeout && r.Error == 0
+}
+
+func (r *responseStatus) String() string {
+	return fmt.Sprintf(`{ "success": %t, "timeout": %t, "error": %d }`, r.Success, r.Timeout, r.Error)
 }

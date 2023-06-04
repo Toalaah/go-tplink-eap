@@ -13,10 +13,10 @@ type LedStatus string
 
 const (
 	LedStatusOff LedStatus = "off"
-	LedStatusOn            = "on"
+	LedStatusOn  LedStatus = "on"
 )
 
-// GetLedStatus returns the EAP's LED status from the `/data/ledctrl.json` endpoint
+// GetLedStatus returns the EAP's LED state.
 func (c *TPLinkClient) GetLedStatus() (LedInfo, error) {
 
 	var res LedInfo
@@ -26,12 +26,12 @@ func (c *TPLinkClient) GetLedStatus() (LedInfo, error) {
 		return res, err
 	}
 
-	parseFromBodyNested(resp, &res)
+	err = parseFromBody(resp, &res)
 
 	return res, err
 }
 
-// GetLedStatus sets the EAP's LED status either on or off
+// GetLedStatus sets the EAP's LED state.
 func (c *TPLinkClient) SetLedStatus(status LedStatus) (LedInfo, error) {
 
 	var res LedInfo
@@ -41,7 +41,7 @@ func (c *TPLinkClient) SetLedStatus(status LedStatus) (LedInfo, error) {
 		return res, err
 	}
 
-	parseFromBodyNested(resp, &res)
+	err = parseFromBody(resp, &res)
 
 	return res, err
 }

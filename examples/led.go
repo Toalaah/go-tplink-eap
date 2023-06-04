@@ -23,7 +23,7 @@ func main() {
 	}
 
 	var newStatus tplink.LedStatus
-	if info.Enable == tplink.LedStatusOn {
+	if info.Enable == string(tplink.LedStatusOn) {
 		newStatus = tplink.LedStatusOff
 	} else {
 		newStatus = tplink.LedStatusOn
