@@ -6,5 +6,6 @@ with pkgs;
       gopls
       gotools
       go-tools
+      golangci-lint
     ];
   }

@@ -15,7 +15,7 @@ type SSHInfo struct {
 	ServerPort int `json:"serverPort"`
 }
 
-// GetLedStatus returns the EAP's SSH-Server status from `/data/ledctrl.json` endpoint
+// GetLedStatus returns the EAP's SSH-Server status from `/data/sshServer.json` endpoint
 func (c *TPLinkClient) GetSSHStatus() (SSHInfo, error) {
 
 	var res SSHInfo

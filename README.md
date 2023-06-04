@@ -14,6 +14,7 @@ other access points' APIs are drastically different.
 
 ```go
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -29,10 +30,10 @@ func main() {
 	c.Authenticate()
 
 	if body, err := c.GetDeviceInfo(); err == nil {
-        log.Fatal(err)
-    } else {
-        println("Status: %s\n", body.DeviceName)
-    }
+		log.Fatal(err)
+	} else {
+		fmt.Printf("Status: %s\n", body.DeviceName)
+	}
 }
 ```
 
