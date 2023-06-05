@@ -18,12 +18,12 @@ type RadioInfo struct {
 }
 
 // GetRadioInfo returns information for the provided radio ID.
-func (c *TPLinkClient) GetRadioInfo(radioId int) (RadioInfo, error) {
+func (c *TPLinkClient) GetRadioInfo(radioID int) (RadioInfo, error) {
 
 	var res RadioInfo
 
 	params := &url.Values{
-		"radioID": {strconv.Itoa(radioId)},
+		"radioID": {strconv.Itoa(radioID)},
 	}
 
 	resp, err := c.makeRequest(http.MethodGet, "/data/wireless.basic.json", nil, params)
